@@ -6,12 +6,14 @@ b) Set up 3D models for seismic simulations for the Moon.
 
 c) View the simulations. 
 
-d) Create the other figures for a forthcoming paper. 
+d) Create the other figures for a forthcoming paper.
 
+----
 See also https://doi.org/10.5281/zenodo.10631693 
 
 The Zenodo repository includes the parameter files and outputs (in NetCDF files). 
 
+----
 postprocessing_observations.ipynb
 
 Artificial Observations (with no phases, with P phase, with P, S and PS)
@@ -29,7 +31,9 @@ build_Moon_surface_model.ipynb
 3D models of surface and Moho topography 
 
 build_Moon_scatter.ipynb
+
 3D models of random lunar scatter
 
 input_files/ImpactParameters.csv 
+
 Timing, location and trajectory of the Artificial Impacts. 
