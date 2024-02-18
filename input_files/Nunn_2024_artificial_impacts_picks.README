@@ -1,0 +1,6 @@
+Picks with smi:begin use the slope of the onset envelope to estimate the onset
+time. The estimatation was performed manually. It is very subjective. 
+Picks with smi:end are where the event signal is above the noise. 
+The smi:begin estimate is before the signals is above the noise. 
+For each event, I used all the available channels. 
+

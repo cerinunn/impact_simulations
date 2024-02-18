@@ -1,0 +1,21 @@
+﻿Impact,UST (time recorded on Earth),Timing Error (s),Latitude,Longitude,Elevation (m),95% Confidence - Latitude (m),95% Confidence - Longitude (m),Error (degrees),No. of Images,Mass (kg),Velocity (m/s) ,Energy (J),Impact Angle from Vertical (degrees),Heading (degrees),Major axis (m),Minor axis (m),Target Lithology,
+A13/S-IVB,1970-04-15T01:09:41.0,0.1,-2.555,-27.8875,-1166,9.4,2.9,-,7,13426,2579,4.63E+10,13.2,79.4,37.5,29,Ejecta/mare basalt,"Timing from Saturn V launch vehicle flight evaluation reports. Remaining estimates from Plescia et al 2016"
+A14/S-IVB,1971-02-04T07:40:55.4,0.1,-8.181,-26.0305,-1785,4.3,2.1,-,17,13987,2543,4.54E+10,21.8,104.3,33.3,31.7,Mare basalt,"Timing from Saturn V launch vehicle flight evaluation reports. Remaining estimates from Plescia et al 2016"
+A15/S-IVB,1971-07-29T20:58:42.9,0.1,-1.2897,-11.8245,-1109,3,2.5,-,24,14007,2577,4.61E+10,27.8,96.5,38.6,28.6,Mare basalt,"Timing from Saturn V launch vehicle flight evaluation reports. Remaining estimates from Plescia et al 2016"
+A16/S-IVB,1972-04-19T21:02:03,0.1,1.9208,-24.6229,-1104,28,28,-,3,13973,2655,4.92E+10,16.6,75.3,38.7,29.9,Mare basalt,"Timing from Saturn V launch vehicle flight evaluation reports. Remaining estimates from Plescia et al 2016"
+A17/S-IVB,1972-12-10T20:32:42.3,0.1,-4.1681,-12.3307,-1206,5.5,1.2,-,9,13921,2544,4.60E+10,35,96.9,34.4,31.9,Mare basalt,"Timing from Saturn V launch vehicle flight evaluation reports. Remaining estimates from Plescia et al 2016. 2023-01-19 - corrected longitude to the value given in Plescia." 
+,,,,,,,,,,,,,,,,,,
+A11/Ascent,1969-07-21T17:54:00,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+A12/Ascent,1969-11-20T14:25:47,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+A14/Ascent,1971-02-06-18:48:42,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+A15/Ascent,1971-08-02T17:11:23,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+A16/Ascent,1972-04-24T01:25:47,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+A17/Ascent,1972-12-14T22:54:37,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+,,,,,,,,,,,,,,,,,,
+A11/LM,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,
+A12/LM,1969-11-20T22:17:17.7,0.1,-3.920,-21.172,-1085,-,-,0.001,-,2383,1680,3.36E+09,86.3,305.85,25,4,-,"Crater location and dimensions from Stooke (2017).  Crater described as linear gouge.  Remaining data from https://history.nasa.gov/SP-4029/Apollo_18-29_LM_Lunar_Impact.htm"
+A14/LM,1971-02-07T00:45:25.7,0.1,-3.420,-19.637,-1326,-,-,0.001,-,2303,1680,3.25E+09,86.4,282,-,-,-,"Crater location and dimensions from Stooke (2017). Remaining data from https://history.nasa.gov/SP-4029/Apollo_18-29_LM_Lunar_Impact.htm"
+A15/LM,1971-08-03T03:03:37.0,0.1,26.360,0.25,-1874,-,-,-,-,2385,1700,3.44E+09,86.8,284,-,-,-,"Data from https://history.nasa.gov/SP-4029/Apollo_18-29_LM_Lunar_Impact.htm 2023-03-30 - corrected date of impact."
+A16/LM,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,"The LM ascent stage was jettisoned at 1972-04-24T20:54:12 UST. It had been targeted to impact near the Apollo 16 site; however, this impact was not possible because of a loss of attitude control, Tire estimated orbital life of the LM ascent stage is about 1 yr. Apollo 16 - Preliminary Science Report, 1972."
+A17/LM,1972-12-15T06:50:20.8,0.1,19.96,30.5,-545,-,-,-,-,2260,1670,3.15E+09,85.1,283,-,-,-,"Data from https://history.nasa.gov/SP-4029/Apollo_18-29_LM_Lunar_Impact.htm"
+,,,,,,,,,,,,,,,,,,"Data provided at https://history.nasa.gov/SP-4029/Apollo_18-29_LM_Lunar_Impact.htm were compiled from the mission report for each flight. Times are when signals received on Earth. Actual landing site coordinates based on International Astronomical Union (IAU) Mean Earth Polar Axis coordinate system as described in the Journal of  Geophysical Research, vol. 105, pages 20,227 to 20,280, 2000."

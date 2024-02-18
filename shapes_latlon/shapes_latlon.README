@@ -1,0 +1,5 @@
+# The code for setting up the 3D models is based on this code: 
+# https://github.com/williameaton/axisem3d-shapes/src
+# I made some modifications to the code (modified files have _latlon in the filename.)
+# Note that I have not tested the code for other geometries
+

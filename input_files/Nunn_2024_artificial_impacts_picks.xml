@@ -1,0 +1,751 @@
+<?xml version='1.0' encoding='utf-8'?>
+<q:quakeml xmlns="http://quakeml.org/xmlns/bed/1.2" xmlns:q="http://quakeml.org/xmlns/quakeml/1.2">
+  <eventParameters publicID="smi:local/7baabd7f-2f47-41f3-97c4-36d6715ec405">
+    <event publicID="smi:local/1b710771-581e-4ed3-a5fa-fb92606b1831">
+      <type>crash</type>
+      <description>
+        <text>A13/S-IVB</text>
+      </description>
+      <origin publicID="smi:local/6be0c9ba-6faa-44c0-9bfb-e6418b9e1348">
+        <time>
+          <value>1970-04-15T01:09:41.000000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>-2.555</value>
+        </latitude>
+        <longitude>
+          <value>-27.8875</value>
+        </longitude>
+        <depth>
+          <value>1166.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/f3ae4f37-e7b5-4158-ba6a-e35f2d074b24">
+        <time>
+          <value>1970-04-15T01:10:07.436332Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/f3ae4f37-e7b5-4158-ba6a-e35f2d074b24">
+        <time>
+          <value>1970-04-15T01:10:10.013761Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/fa4721cc-229f-4fea-a4f9-3fbe7ea4e1b4">
+        <time>
+          <value>1970-04-15T01:09:41.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/fa4721cc-229f-4fea-a4f9-3fbe7ea4e1b4">
+        <time>
+          <value>1970-04-15T01:09:41.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/7cf30005-af4b-4fb9-a7e1-96496702980b">
+        <time>
+          <value>1970-04-15T01:09:41.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/7cf30005-af4b-4fb9-a7e1-96496702980b">
+        <time>
+          <value>1970-04-15T01:09:41.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/c781c190-de98-4f99-94e4-0001a89ed77b">
+        <time>
+          <value>1970-04-15T01:09:41.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/c781c190-de98-4f99-94e4-0001a89ed77b">
+        <time>
+          <value>1970-04-15T01:09:41.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+    </event>
+    <event publicID="smi:local/2d5bc2a6-8035-4568-947e-6d8177070e2b">
+      <type>crash</type>
+      <description>
+        <text>A14/S-IVB</text>
+      </description>
+      <origin publicID="smi:local/76a4c471-cea3-4e18-8e72-6879e24fe530">
+        <time>
+          <value>1971-02-04T07:40:55.400000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>-8.181</value>
+        </latitude>
+        <longitude>
+          <value>-26.0305</value>
+        </longitude>
+        <depth>
+          <value>1785.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/6f9b1f88-1e67-4dce-b77d-bdd80d9239b7">
+        <time>
+          <value>1971-02-04T07:41:31.772410Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/6f9b1f88-1e67-4dce-b77d-bdd80d9239b7">
+        <time>
+          <value>1971-02-04T07:41:32.212160Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/c4878375-1c84-46e6-a222-6518b0bf44c0">
+        <time>
+          <value>1971-02-04T07:40:55.400000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/c4878375-1c84-46e6-a222-6518b0bf44c0">
+        <time>
+          <value>1971-02-04T07:40:55.400000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/d6e3636e-c5de-4701-b97f-713d6c25a125">
+        <time>
+          <value>1971-02-04T07:40:55.400000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/d6e3636e-c5de-4701-b97f-713d6c25a125">
+        <time>
+          <value>1971-02-04T07:40:55.400000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+
+      <pick publicID="smi:local/efcebb8b-ed68-450f-8dda-a7fdabce8b9b">
+        <time>
+          <value>1971-02-04T07:40:55.400000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/efcebb8b-ed68-450f-8dda-a7fdabce8b9b">
+        <time>
+          <value>1971-02-04T07:40:55.400000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+    </event>
+    <event publicID="smi:local/091547e4-ce4e-43ad-9624-796a2a0a5832">
+      <type>crash</type>
+      <description>
+        <text>A15/S-IVB</text>
+      </description>
+      <origin publicID="smi:local/79ef0c9e-57b9-46f2-8f4f-8b5dfebc8fa3">
+        <time>
+          <value>1971-07-29T20:58:42.900000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>-1.2897</value>
+        </latitude>
+        <longitude>
+          <value>-11.8245</value>
+        </longitude>
+        <depth>
+          <value>1109.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/abf08254-9b9b-4b41-8eb7-6976f7c84c1d">
+        <time>
+          <value>1971-07-29T20:59:35.044929Z</value>
+          <lowerUncertainty>5.0</lowerUncertainty>
+          <upperUncertainty>1.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/abf08254-9b9b-4b41-8eb7-6976f7c84c1d">
+        <time>
+          <value>1971-07-29T20:59:37.993944Z</value>
+          <lowerUncertainty>5.0</lowerUncertainty>
+          <upperUncertainty>1.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:begin/15df2d06-40e6-4da3-a89a-8d3eae18f8b6">
+        <time>
+          <value>1971-07-29T20:59:21.899439Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/15df2d06-40e6-4da3-a89a-8d3eae18f8b6">
+        <time>
+          <value>1971-07-29T20:59:24.034460Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/770bead2-2630-4444-89b6-f035dc277a61">
+        <time>
+          <value>1971-07-29T20:58:42.900000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/770bead2-2630-4444-89b6-f035dc277a61">
+        <time>
+          <value>1971-07-29T20:58:42.900000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/93433558-2c21-417e-93d8-85b014ff059b">
+        <time>
+          <value>1971-07-29T20:58:42.900000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/93433558-2c21-417e-93d8-85b014ff059b">
+        <time>
+          <value>1971-07-29T20:58:42.900000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+    </event>
+    <event publicID="smi:local/a959e43f-876d-4d28-8564-d7fe65b39902">
+      <type>crash</type>
+      <description>
+        <text>A16/S-IVB</text>
+      </description>
+      <origin publicID="smi:local/5b7f8aca-feaa-46c1-83c1-57193c8c5488">
+        <time>
+          <value>1972-04-19T21:02:03.000000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>1.9208</value>
+        </latitude>
+        <longitude>
+          <value>-24.6229</value>
+        </longitude>
+        <depth>
+          <value>1104.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/7cf9bd24-3db4-4d52-b247-f2f586b6699c">
+        <time>
+          <value>1972-04-19T21:02:29.233109Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/7cf9bd24-3db4-4d52-b247-f2f586b6699c">
+        <time>
+          <value>1972-04-19T21:02:31.590096ZZ</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:begin/2641b422-7e16-4214-a669-72f7974bd2d4">
+        <time>
+          <value>1972-04-19T21:02:50.509575Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/2641b422-7e16-4214-a669-72f7974bd2d4">
+        <time>
+          <value>1972-04-19T21:02:51.357736Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:begin/13e55348-ad10-431b-ae71-f996dbddf073">
+        <time>
+          <value>1972-04-19T21:04:28.029170Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/13e55348-ad10-431b-ae71-f996dbddf073">
+        <time>
+          <value>1972-04-19T21:04:32.798065Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/c13e33de-5784-4c51-8398-42600f74400f">
+        <time>
+          <value>1972-04-19T21:02:03.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/c13e33de-5784-4c51-8398-42600f74400f">
+        <time>
+          <value>1972-04-19T21:02:03.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+    </event>
+    <event publicID="smi:local/3bed9bba-09f5-4d2a-8d05-fa7caa461d5e">
+      <type>crash</type>
+      <description>
+        <text>A17/S-IVB</text>
+      </description>
+      <origin publicID="smi:local/abb387cb-b642-49aa-ab15-8696c26c571c">
+        <time>
+          <value>1972-12-10T20:32:42.300000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>-4.1681</value>
+        </latitude>
+        <longitude>
+          <value>-12.3307</value>
+        </longitude>
+        <depth>
+          <value>1206.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/e3f5b33e-4ee7-4a6d-80a6-4d1089f2d892">
+        <time>
+          <value>1972-12-10T20:33:34.163822Z</value>
+          <lowerUncertainty>1.0</lowerUncertainty>
+          <upperUncertainty>1.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/e3f5b33e-4ee7-4a6d-80a6-4d1089f2d892">
+        <time>
+          <value>1972-12-10T20:33:37.860859Z</value>
+          <lowerUncertainty>1.0</lowerUncertainty>
+          <upperUncertainty>1.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:begin/57fe5a34-de4b-4cfa-8607-b35909703b32">
+        <time>
+          <value>1972-12-10T20:34:59.407684Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/57fe5a34-de4b-4cfa-8607-b35909703b32">
+        <time>
+          <value>1972-12-10T20:35:17.636140Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:begin/966f62ac-2217-48ed-8e2e-894cdb22c2ca">
+        <time>
+          <value>1972-12-10T20:34:48.284099Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/966f62ac-2217-48ed-8e2e-894cdb22c2ca">
+        <time>
+          <value>1972-12-10T20:34:50.205069Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+    </event>
+    <event publicID="smi:local/49dcd087-2ca6-4c62-9142-04b72d4324a5">
+      <type>crash</type>
+      <description>
+        <text>A12/LM</text>
+      </description>
+      <origin publicID="smi:local/d1ff9ae9-89a7-4b2b-b914-83690d603de7">
+        <time>
+          <value>1969-11-20T22:17:17.700000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>-3.92</value>
+        </latitude>
+        <longitude>
+          <value>-21.172</value>
+        </longitude>
+        <depth>
+          <value>1085.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/89371d96-392d-4f8b-ba03-c4e5a70c6707">
+        <time>
+          <value>1969-11-20T22:17:36.573445Z</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/89371d96-392d-4f8b-ba03-c4e5a70c6707">
+        <time>
+          <value>1969-11-20T22:17:54.281198Z</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/b7ffbc9d-0669-4175-987a-75c4ad159a54">
+        <time>
+          <value>1969-11-20T22:17:17.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/b7ffbc9d-0669-4175-987a-75c4ad159a54">
+        <time>
+          <value>1969-11-20T22:17:17.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/ce358ed5-5edb-4dc9-a1e8-2fadfca5176a">
+        <time>
+          <value>1969-11-20T22:17:17.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/ce358ed5-5edb-4dc9-a1e8-2fadfca5176a">
+        <time>
+          <value>1969-11-20T22:17:17.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/026eeb47-2601-4ca9-802b-b4855c90832c">
+        <time>
+          <value>1969-11-20T22:17:17.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/026eeb47-2601-4ca9-802b-b4855c90832c">
+        <time>
+          <value>1969-11-20T22:17:17.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+    </event>
+    <event publicID="smi:local/91319074-3986-404f-8eb9-0acc96a59ef5">
+      <type>crash</type>
+      <description>
+        <text>A14/LM</text>
+      </description>
+      <origin publicID="smi:local/ab8228c6-58a3-4a16-b524-276d23cfe776">
+        <time>
+          <value>1971-02-07T00:45:25.700000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>-3.42</value>
+        </latitude>
+        <longitude>
+          <value>-19.637</value>
+        </longitude>
+        <depth>
+          <value>1326.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/ea00a8ce-6ff3-4b52-8c62-8d735bda7dd9">
+        <time>
+          <value>1971-02-07T00:45:54.315069Z</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/ea00a8ce-6ff3-4b52-8c62-8d735bda7dd9">
+        <time>
+          <value>1971-02-07T00:46:06.458680Z</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:begin/8a560166-748e-47e4-94ce-6d1ad3ccaf78">
+        <time>
+          <value>1971-02-07T00:45:42.223432Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/8a560166-748e-47e4-94ce-6d1ad3ccaf78">
+        <time>
+          <value>1971-02-07T00:45:44.767562Z</value>
+          <lowerUncertainty>0.5</lowerUncertainty>
+          <upperUncertainty>0.5</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S14" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/ebb407c9-1782-4cdf-8b1a-f3c33133cfd9">
+        <time>
+          <value>1971-02-07T00:45:25.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/ebb407c9-1782-4cdf-8b1a-f3c33133cfd9">
+        <time>
+          <value>1971-02-07T00:45:25.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/720ab6ff-5c08-4b37-97d7-025fe813af26">
+        <time>
+          <value>1971-02-07T00:45:25.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/720ab6ff-5c08-4b37-97d7-025fe813af26">
+        <time>
+          <value>1971-02-07T00:45:25.700000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+    </event>
+    <event publicID="smi:local/d02a49a6-3428-4731-923b-0c9f195a521a">
+      <type>crash</type>
+      <description>
+        <text>A15/LM</text>
+      </description>
+      <origin publicID="smi:local/d5634493-581e-4c03-b911-eafef429857b">
+        <time>
+          <value>1971-08-03T03:03:37.000000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>26.36</value>
+        </latitude>
+        <longitude>
+          <value>0.25</value>
+        </longitude>
+        <depth>
+          <value>1874.0</value>
+        </depth>
+      </origin>
+
+      <pick publicID="smi:begin/97f343a5-9f99-4809-b7e4-a212fb7a204b">
+        <time>
+          <value>1971-08-03T03:04:01.208847Z</value>
+          <lowerUncertainty>1.0</lowerUncertainty>
+          <upperUncertainty>1.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/97f343a5-9f99-4809-b7e4-a212fb7a204b">
+        <time>
+          <value>1971-08-03T03:04:19.224282Z</value>
+          <lowerUncertainty>1.0</lowerUncertainty>
+          <upperUncertainty>1.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/b27e0e8f-21fe-4df6-b490-7e9d95eebc16">
+        <time>
+          <value>1971-08-03T03:03:37.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/b27e0e8f-21fe-4df6-b490-7e9d95eebc16">
+        <time>
+          <value>1971-08-03T03:03:37.000000Z</value>
+        </time>
+        <waveformID networkCode="XA" stationCode="S16" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+    </event>
+    <event publicID="smi:local/43f4e3c0-0dad-45aa-b077-899c6f989327">
+      <type>crash</type>
+      <description>
+        <text>A17/LM</text>
+      </description>
+      <origin publicID="smi:local/b973258c-0d8d-4761-9545-67a1b417055a">
+        <time>
+          <value>1972-12-15T06:50:20.800000Z</value>
+          <uncertainty>0.0</uncertainty>
+        </time>
+        <latitude>
+          <value>19.96</value>
+        </latitude>
+        <longitude>
+          <value>30.5</value>
+        </longitude>
+        <depth>
+          <value>545.0</value>
+        </depth>
+      </origin>
+      <pick publicID="smi:begin/f1c2d62c-83ea-419d-bf3c-c05f48ca639c">
+        <time>
+          <value>1972-12-15T06:54:31.436950Z</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:end/f1c2d62c-83ea-419d-bf3c-c05f48ca639c">
+        <time>
+          <value>1972-12-15T06:55:45.027487</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S12" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:local/cb8d137a-aa50-41de-9cdb-0c502be53dee">
+        <time>
+          <value>1972-12-15T06:54:15.847184Z</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+      <pick publicID="smi:instrument/cb8d137a-aa50-41de-9cdb-0c502be53dee">
+        <time>
+          <value>1972-12-15T06:54:03.501010Z</value>
+          <lowerUncertainty>10.0</lowerUncertainty>
+          <upperUncertainty>10.0</upperUncertainty>
+        </time>
+        <waveformID networkCode="XA" stationCode="S15" locationCode="" channelCode=""></waveformID>
+        <phaseHint>P</phaseHint>
+      </pick>
+
+    </event>
+  </eventParameters>
+</q:quakeml>
