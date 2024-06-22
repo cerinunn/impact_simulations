@@ -34,6 +34,25 @@ build_Moon_scatter.ipynb
 
 3D models of random lunar scatter
 
+
+----
+This was the code I used to set up my local python environment - called postprocessing.
+I used Miniconda - which will need to be set up first. 
+
+
+conda create -n postprocessing python=3.8  
+conda activate postprocessing
+
+conda install jupyter pyyaml matplotlib basemap pandas future  
+conda install -c conda-forge obspy netcdf4  
+pip install opencv-python pyvista vtk
+
+pip install --find-links=https://irfpy.irf.se/sdist/ irfpy.util -U  
+    # Moon basemap  
+pip install --no-index --find-links=https://irfpy.irf.se/sdist irfpy.planets -U
+
+conda install basemap
+
 input_files/ImpactParameters.csv 
 
 Timing, location and trajectory of the Artificial Impacts. 
