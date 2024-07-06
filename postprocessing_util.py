@@ -858,6 +858,11 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
             tr.trim(starttime=UTCDateTime(startsecond), endtime=UTCDateTime(endsecond))
             print(tr.stats.station, tr.stats.distance_in_km)
 
+        if len(tr) == 0:
+            print('Empty trace after trim - removing', i, tr)
+            epicentral_stream.remove(tr)
+            continue
+
         if normalize == 'relative':
             # find the normalization factor
             max_data = abs(tr.data).max()
@@ -1145,7 +1150,7 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
                     max_data = abs(tr.data).max()
                     # normalize the trace
                     tr.data = tr.data/max_data
-                    print('trace should be normalized')
+                    print('trace normalized')
 
                 elif normalize == 'PP_arrival':
                     # this might be the best way to normalize
@@ -1606,7 +1611,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
                         max_data = abs(tr_envelope.data).max()
                         # normalize the trace
                         tr_envelope.data = tr_envelope.data/max_data
-    #                     print('trace should be normalized')
+    #                     print('trace normalized')
 
                     if smooth_periods > 1:
                         kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
@@ -1635,7 +1640,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
                         max_data = abs(tr.data).max()
                         # normalize the trace
                         tr.data = tr.data/max_data
-    # #                     print('trace should be normalized')
+    # #                     print('trace normalized')
     #                     if annotate_relative:
     #                         # scale_factor = scale/max_data
     #                         ax.annotate(text='x{:.1e}'.format(max_data), xy=(annotate_endsecond2,-1), xycoords='data',
@@ -1769,7 +1774,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
                                 horizontalalignment='right', verticalalignment='bottom',fontsize=10, color=color_match_col,annotation_clip=False,
                                 )
 
-    #                     print('trace should be normalized')
+    #                     print('trace normalized')
 
         if plot_envelope or plot_derivative or plot_envelope_one_color:
 
