@@ -47,7 +47,7 @@ import seaborn
 
 from matplotlib.pyplot import get_cmap
 
-from postprocessing_util_observations import get_station_details
+from impact_simulations.postprocessing_util_observations import get_station_details
 
 
 plt.rcParams['figure.figsize'] = [16, 7]
