@@ -1323,14 +1323,22 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
                         phase_name = phase_name_dict.get(phase, phase)
                         linestyle = 'dashed'
                         zorder = 1
-                        if just_taup and phase_name in ["P","S"]:
-                            linestyle = 'solid'
-                            zorder = 0.5
+                        dashes=(4, 2)
+                        if just_taup:
+                            if phase_name in ["P","S"]:
+                                linestyle = 'solid'
+                                zorder = 0.5
+                                dashes=()
+
+                            elif phase_name in ["PS"]:
+                                linestyle = 'dashed'
+                                dashes=(4, 4)
+                                zorder = 1
 
                         if seismograms_vertical:
-                            ax.plot(dist_deg, time_sec, label=phase_name, color=phase_color_dict[phase],linestyle=linestyle, zorder=zorder)
+                            ax.plot(dist_deg, time_sec, label=phase_name, color=phase_color_dict[phase],linestyle=linestyle,dashes=dashes,zorder=zorder)
                         else:
-                            ax.plot(time_sec, dist_deg, label=phase_name, color=phase_color_dict[phase],linestyle=linestyle, zorder=zorder)
+                            ax.plot(time_sec, dist_deg, label=phase_name, color=phase_color_dict[phase],linestyle=linestyle,dashes=dashes,zorder=zorder)
 
     x = [0,20]
     y = [0,280]
