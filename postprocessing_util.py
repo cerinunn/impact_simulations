@@ -1303,9 +1303,9 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
                 y = [0, arrivals[0].time]
                 phase_name = phase.replace('kmps', ' km/s')
                 if seismograms_vertical:
-                    ax.plot(x, y, label=phase_name, color=phase_color_dict[phase], linestyle='dashed', zorder=1)
+                    ax.plot(x, y, label=phase_name, color=phase_color_dict[phase], linestyle='dotted', zorder=1)
                 else:
-                    ax.plot(y, x, label=phase_name, color=phase_color_dict[phase], linestyle='dashed', zorder=1)
+                    ax.plot(y, x, label=phase_name, color=phase_color_dict[phase], linestyle='dotted', zorder=1)
             else:
 
                 ph = SeismicPhase(phase, depth_corrected_model)
@@ -1454,10 +1454,7 @@ def get_phase_colors(phase_list):
 
     # give some basic phases the same colors everytime
 
-    phase_list_extra = []
-    for phase in phase_list:
-        if phase not in ['P','p','S', 's', 'PS']:
-            phase_list_extra.append(phase)
+
 
     phase_list_dict =  {
     'P': '#4363d8', # blue
@@ -1465,26 +1462,41 @@ def get_phase_colors(phase_list):
     'S': '#911eb4', # purple
     's': '#dcbeff', # lavender
     'PS':'#f032e6', # magenta
+    'PP': '#000075', # navy
+    'PSS' : '#FF9EEC', # pink
 
+    '2.47kmps': '#4363d8', # blue
+    '0.77kmps': '#42d4f4', # cyan
+    '0.47kmps': '#911eb4', # purple
+    '2.27kmps': '#dcbeff', # lavender
+    '1.66kmps':'#f032e6', # magenta
+    '1.21kmps': '#3cb44b', # green
+    '2.15kmps': '#000075', # navy
+    '0.57kmps' : '#FF9EEC' # pink
     }
 
     remaining_list = [
-        '#000075', # navy
         '#e6194B', # red
         '#f58231', # orange
         '#ffe119', # yellow
         '#bfef45', # lime
-        '#3cb44b', # green
         '#469990', # teal
         '#800000', # maroon
         '#9A6324', # brown
         '#808000', # olive
-        '#fabed4', # pink
         '#aaffc3', # mint
+        '#3cb44b', # green
+        '#000075', # navy
+        '#FF9EEC' # pink
     ]
 
+    phase_list_extra = []
+    for phase in phase_list:
+        if phase not in phase_list_dict:
+            phase_list_extra.append(phase)
+
     for i, phase in enumerate(phase_list_extra):
-        if phase not in ['P','p','S', 's', 'PS']:
+        if phase not in phase_list_dict:
             phase_list_dict[phase] = remaining_list[i]
 
     return (phase_list_dict)
