@@ -503,6 +503,7 @@ def get_all_streams_from_netcdf(top_dir,run,short_title,station_group,station_fi
 
         stats.distance_in_km = distance_in_km
         stats.distance_in_degree = distance_in_degree
+        stats.baz = azimuth_B_A        
 
         stats.run = run
         stats.short_title = short_title
