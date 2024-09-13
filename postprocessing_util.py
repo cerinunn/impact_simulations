@@ -19,7 +19,7 @@ import math
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import matplotlib
-matplotlib.rcParams.update({'font.size': 12})
+matplotlib.rcParams["font.size"] = "10"
 from matplotlib.dates import date2num
 from matplotlib.patches import Rectangle
 from matplotlib import patheffects
@@ -38,6 +38,7 @@ from obspy.taup import TauPyModel
 from obspy.taup.tau import plot_ray_paths
 from obspy.taup.utils import parse_phase_list, split_ray_path
 from obspy.taup.seismic_phase import SeismicPhase
+from obspy.signal.util import smooth
 
 from irfpy.moon import moon_map
 
@@ -72,6 +73,24 @@ phase_name_dict = {'kmps' : 'km/s',
     "Sv12s" : 'S (trapped 0-12 km)',
     "Sv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12sSv12s" : 'S (trapped 0-12 km)',
 }
+
+color_match = {
+    '120_VPREMOON_atten_explosion_2':'#1E4538',
+    '128b_VPREMOON_atten_surface_2': '#BCBD45',
+    '125_VPREMOON_atten_Moho_2': 'g',
+    '127w_VPREMOON_atten_linear20_2': '#73A848',
+    '126w_VPREMOON_atten_linear50_2': '#2E6C4B',
+    '124w_VPREMOON_atten_linear80_2': '#3C867F',
+    '152we_VPREMOON_atten_combi_50_2': '#8CE1B8',
+
+    '141_ISSI_atten_explosion_2': '#05007B',
+    '148_ISSI_atten_surface_2': '#2C2B4F',
+    '147_ISSI_atten_Moho_2': '#52B2F9',
+    '146we_ISSI_atten_linear20_2': '#536F86',
+    '145we_ISSI_atten_linear50_2': '#377DF6',
+    '140we_ISSI_atten_linear80_2': '#74FAFD',
+    '166w_ISSI_atten_combi_50_nr_100_constant_2': '#60B4CA',
+    }
 
 
 ### Combined netcdf file
@@ -503,7 +522,7 @@ def get_all_streams_from_netcdf(top_dir,run,short_title,station_group,station_fi
 
         stats.distance_in_km = distance_in_km
         stats.distance_in_degree = distance_in_degree
-        stats.baz = azimuth_B_A        
+        stats.baz = azimuth_B_A
 
         stats.run = run
         stats.short_title = short_title
@@ -1091,11 +1110,12 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
         for ii, pre_filt in enumerate(pre_filt_env):
 
             # find a good smoothing size
-            mid_period  = 1/((pre_filt[1] + pre_filt[2]) / 2)
-            smooth_kernel_size = mid_period * smooth_periods / epicentral_stream_env[0].stats.delta
-            smooth_kernel_size = int(smooth_kernel_size) + 1
+            smoothie = calculate_smoothie_from_periods(delta=epicentral_stream_env[0].stats.delta,freqmin=freqmin,freqmax=freqmax,smooth_periods=smooth_periods)
+            # mid_period  = 1/((pre_filt[1] + pre_filt[2]) / 2)
+            # smooth_kernel_size = mid_period * smooth_periods / epicentral_stream_env[0].stats.delta
+            # smooth_kernel_size = int(smooth_kernel_size) + 1
 
-            print('smooth_periods={}, smooth_kernel_size={} smoothing length={:.1f} s'.format(smooth_periods,smooth_kernel_size, smooth_kernel_size*tr.stats.delta))
+            print('smooth_periods={}, smoothie={} smoothing length={:.1f} s'.format(smooth_periods,smoothie, smoothie*epicentral_stream_env[0].stats.delta))
 
             for i, tr1 in enumerate(epicentral_stream_env):
 
@@ -1123,11 +1143,11 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
                 # find the envelope
                 tr.data=envelope(tr.data)
 
-                if smooth_kernel_size > 1:
-                    kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                    data_convolved = np.convolve(tr.data, kernel, mode='same')
-
-                    tr.data = data_convolved
+                if smoothie > 1:
+                    tr.data = smooth(x=tr.data,smoothie=smoothie)
+                    # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                    # data_convolved = np.convolve(tr.data, kernel, mode='same')
+                    # tr.data = data_convolved
 
 #                     # y_avg = np.zeros((1, len(tr)))
 #                     # avg_mask = np.ones(smooth_length)/smooth_length
@@ -1513,7 +1533,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
     smooth_periods=10,plot_seismogram=False,plot_envelope=False,plot_envelope_one_color=False,plot_derivative=False,annotate_relative=False,save_fig=False,figsize=(11, 17)):
 
     annotate_endsecond = endsecond*.99
-    annotate_endsecond2 = endsecond*1.1
+    annotate_endsecond2 = endsecond*1.07
 
     if model_taup_label is not None:
         print('Calculated using model : ', model_taup_label)
@@ -1526,26 +1546,6 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
     # cmap_phaselist = get_cmap_phaselist(len(phase_list))
     # seaborn_colors = seaborn.color_palette()
     seaborn_colors = seaborn.color_palette(n_colors=14)
-
-
-
-    color_match = {
-    '120_VPREMOON_atten_explosion_2':'#1E4538',
-    '128b_VPREMOON_atten_surface_2': '#BCBD45',
-    '125_VPREMOON_atten_Moho_2': 'g',
-    '127_VPREMOON_atten_linear20_2': '#73A848',
-    '126_VPREMOON_atten_linear50_2': '#2E6C4B',
-    '124_VPREMOON_atten_linear80_2': '#3C867F',
-    '152_VPREMOON_atten_combi_50_2': '#8CE1B8',
-
-    '141_ISSI_atten_explosion_2': '#05007B',
-    '148_ISSI_atten_surface_2': '#2C2B4F',
-    '147_ISSI_atten_Moho_2': '#52B2F9',
-    '146_ISSI_atten_linear20_2': '#536F86',
-    '145_ISSI_atten_linear50_2': '#377DF6',
-    '140_ISSI_atten_linear80_2': '#74FAFD',
-    '150_ISSI_atten_combi_50_2': '#60B4CA',
-    }
 
 
 
@@ -1594,11 +1594,14 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
         observation_stream_local.taper(max_percentage=None,max_length=taper_len,side='both')
 
         # find a good smoothing size
-        mid_period  = 1/((freqmin + freqmax) / 2)
-        smooth_kernel_size = mid_period * smooth_periods / observation_stream_local[0].stats.delta
-        smooth_kernel_size = int(smooth_kernel_size) + 1
+        # mid_period  = 1/((freqmin + freqmax) / 2)
+        # smooth_kernel_size = mid_period * smooth_periods / observation_stream_local[0].stats.delta
+        # smooth_kernel_size = int(smooth_kernel_size) + 1
+        smoothie = calculate_smoothie_from_periods(delta=observation_stream_local[0].stats.delta,freqmin=freqmin,freqmax=freqmax,smooth_periods=smooth_periods)
 
-        print('Observations: smooth_periods={}, smooth_kernel_size={} smoothing length={:.1f} s'.format(smooth_periods,smooth_kernel_size, smooth_kernel_size*observation_stream_local[0].stats.delta))
+
+
+        print('Observations: smooth_periods={}, smoothie={} smoothing length={:.1f} s'.format(smooth_periods,smoothie, smoothie*observation_stream_local[0].stats.delta))
 
         for i, tr in enumerate(observation_stream_local):
             if scale_list is not None:
@@ -1626,29 +1629,28 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
                     tr_envelope.data = np.ma.masked_array(tr_envelope, mask=original_mask)
                     tr_envelope.trim(starttime=tr.stats.impact_time + startsecond, endtime=tr_envelope.stats.impact_time + endsecond)
 
+
                     # normalize BEFORE smoothing
                     if normalize == 'relative':
                         # find the normalization factor
                         max_data = abs(tr_envelope.data).max()
                         # normalize the trace
                         tr_envelope.data = tr_envelope.data/max_data
+
+                    if smoothie > 1:
+                        # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                        # data_convolved = np.convolve(tr_envelope.data, kernel, mode='same')
+                        # tr_envelope.data = data_convolved
+                        tr_envelope.data = smooth(x=tr_envelope.data,smoothie=smoothie)
+
+
     #                     print('trace normalized')
-
-                    if smooth_periods > 1:
-                        kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                        data_convolved = np.convolve(tr_envelope.data, kernel, mode='same')
-
-                        tr_envelope.data = data_convolved
 
 #                     # y_avg = np.zeros((1, len(tr)))
 #                     # avg_mask = np.ones(smooth_length)/smooth_length
 #                     # y_avg = np.convolve(tr.data, avg_mask, 'same')
 
 #                     # tr.data = y_avg
-
-
-
-
 
                 if plot_seismogram:
                     # apply the mask back to the trace
@@ -1687,10 +1689,11 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
                     tr_diff = tr.copy()
                     tr_diff.differentiate()
-                    if smooth_periods > 1:
-                        kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                        data_convolved = np.convolve(tr_diff.data, kernel, mode='same')
-                        tr_diff.data = data_convolved
+                    if smoothie > 1:
+                        # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                        # data_convolved = np.convolve(tr_diff.data, kernel, mode='same')
+                        # tr_diff.data = data_convolved
+                        tr_diff.data = smooth(x=tr_diff.data,smoothie=smoothie)
                     ref_time = tr.stats.impact_time
                     time = tr.times(reftime=ref_time)
                     ax2.plot(time,tr_diff.data*scale*100,label='Observation - Derivative',color='r',alpha=0.5,zorder=9)
@@ -1755,7 +1758,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
         color_i = run_list.index(tr.stats.run)
 
-        color_match_col = color_match.get(tr.stats.run, 'r')
+        color_match_col = color_match.get(tr.stats.run, 'k')
 
         # process the traces for the envelopes
 
@@ -1776,8 +1779,10 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
                 # normalize the trace
                 tr.data = tr.data/max_data
 
+                print(i, max_data)
+
                 max_data_norm = max_data / scale
-                print(i, max_data_norm)
+
 
                 if i == 0:
 
@@ -1791,7 +1796,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
                 if annotate_relative:
                     # scale_factor = scale/max_data
-                    ax.annotate(text='x{:.1f}'.format(ampl_factor), xy=(annotate_endsecond2,-(i+1)*2+0.5), xycoords='data',
+                    ax.annotate(text='x{:.0f}'.format(ampl_factor), xy=(annotate_endsecond2,-(i+1)*2+0.5), xycoords='data',
                                 horizontalalignment='right', verticalalignment='bottom',fontsize=10, color=color_match_col,annotation_clip=False,
                                 )
 
@@ -1799,28 +1804,35 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
         if plot_envelope or plot_derivative or plot_envelope_one_color:
 
-            # normalize BEFORE smooothing
+
+
+
+            tr_envelope.trim(starttime=UTCDateTime(startsecond), endtime=UTCDateTime(endsecond))
+
+            # find a good smoothing size
+            smoothie = calculate_smoothie_from_periods(delta=tr_envelope.stats.delta,freqmin=freqmin,freqmax=freqmax,smooth_periods=smooth_periods)
+            # mid_period  = 1/((freqmin + freqmax) / 2)
+            # smooth_kernel_size = mid_period * smooth_periods / tr_envelope.stats.delta
+            # smooth_kernel_size = int(smooth_kernel_size) + 1
+
+            print('Simulation: {}, smooth_periods={}, smoothie={} smoothing length={:.1f} s'.format(tr_envelope.stats.run,smooth_periods,smoothie, smoothie*tr_envelope.stats.delta))
+
+
+            # normalize BEFORE smoothing
             if normalize == 'relative':
                 # find the normalization factor
                 max_data = abs(tr_envelope.data).max()
                 # normalize the trace
                 tr_envelope.data = tr_envelope.data/max_data
     #                     print('trace should be normalized')
-                print('plot envelope ', abs(tr_envelope.data).max())
+                # print('plot envelope ', abs(tr_envelope.data).max())
 
-            tr_envelope.trim(starttime=UTCDateTime(startsecond), endtime=UTCDateTime(endsecond))
+            if smoothie > 1:
+                # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                # data_convolved = np.convolve(tr_envelope.data, kernel, mode='same')
+                # tr_envelope.data = data_convolved
+                tr_envelope.data = smooth(x=tr_envelope.data,smoothie=smoothie)
 
-            # find a good smoothing size
-            mid_period  = 1/((freqmin + freqmax) / 2)
-            smooth_kernel_size = mid_period * smooth_periods / tr_envelope.stats.delta
-            smooth_kernel_size = int(smooth_kernel_size) + 1
-
-            print('Simulation: {}, smooth_periods={}, smooth_kernel_size={} smoothing length={:.1f} s'.format(tr_envelope.stats.run,smooth_periods,smooth_kernel_size, smooth_kernel_size*epicentral_stream[0].stats.delta))
-
-            if smooth_periods > 1:
-                kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                data_convolved = np.convolve(tr_envelope.data, kernel, mode='same')
-                tr_envelope.data = data_convolved
 
         ref_time = UTCDateTime(0)
 
@@ -1851,16 +1863,18 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 #             for ix in range(0,200):
 #                 tr_diff.data[ix] = tr_diff.data[199]
             tr_diff.differentiate()
-            if smooth_periods > 1:
-                kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                data_convolved = np.convolve(tr_diff.data, kernel, mode='same')
-                tr_diff.data = data_convolved
+            if smoothie > 1:
+                tr_diff.data = smooth(x=tr_diff.data,smoothie=smoothie)
+                # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                # data_convolved = np.convolve(tr_diff.data, kernel, mode='same')
+                # tr_diff.data = data_convolved
 
             time = tr_diff.times(reftime=ref_time)
             ax.plot(time,tr_diff.data*scale*100-(i+1)*2,label='{} Derivative'.format(tr_diff.stats.run),color='g',alpha=0.5,zorder=9)
 
-        y_lower_lim = -(i+1)*2-scale
+        # set the lower limit just below the last entry
+        y_lower_lim = -(i+1)*2-2
 
     if taup_show:
         phase_list_dict = get_phase_colors(phase_list)
@@ -1924,7 +1938,6 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
     if save_fig:
         plt.tight_layout()
-        print('now using tight_layout - check!!!')
         fig_name = 'fig_{}.png'.format(UTCDateTime.now())
         fig_name = os.path.join('./temp/',fig_name)
         plt.savefig(fig_name)
@@ -2011,4 +2024,482 @@ def plot_taup_epicentral(
         plt.title(title)
 #     plt.title('Propagation of an Explosive Source\nLowpass filtered below {:.1f} Hz'.format(freq))
     plt.show()
+    plt.close()
+
+# linear regressionn to estimate coda decay parameters
+# pass in t timeseries and y energy amplitude
+# return A (amplitude constant) and td (characteristic decay time)
+# The input equation is of the form A = A0 * e ^ (-t/td) - Fig. 12 from Nunn et al., 2020
+def fit_exp_linear(t, y, C=0):
+    y = y - C
+    y = np.log(y)
+    K, A_log = np.polyfit(t, y, 1)
+    A = np.exp(A_log)
+    td = -1/K
+    return A, td
+
+# calculate the coda decay curve using A, timeseries t and characteristic decay time (td)
+def calc_coda_decay(A, t, td):
+    fit_y = A * np.exp(-t/td)
+    return fit_y
+
+def calculate_smoothie_from_periods(delta=None,freqmin=None,freqmax=None,smooth_periods=None):
+    # smoothie is the parameter which is passed to obspy.signal.util.smooth
+    # smoothie – number of past/future values to calculate moving average
+
+    # We can either estimate it from the required smoothing length in seconds
+    # or from the required number of periods and the minimum / maximum frequency
+
+    mid_freq = freqmin + (freqmax - freqmin)/2
+    mid_period  = 1/ mid_freq
+    smoothie = mid_period * smooth_periods / delta
+    smoothie = int(smoothie)
+    if smoothie < 1:
+        smoothie = 1
+    # print(smoothie, delta * smoothie, 's')
+    return smoothie
+
+
+def calculate_smoothie_from_len(delta=None,len=None):
+    # smoothie is the parameter which is passed to obspy.signal.util.smooth
+    # smoothie – number of past/future values to calculate moving average
+
+    # We can either estimate it from the required smoothing length in seconds
+    # or from the required number of periods and the minimum / maximum frequency
+
+    smoothie = len / delta
+    smoothie = int(smoothie)
+    if smoothie < 1:
+        smoothie = 1
+    # print(smoothie)
+    return smoothie
+
+
+
+# plot envelopes and taup for the simulations or observations at one place
+# either pass in one stream or item in run_list and several envelopes or
+# several items and one envelope
+# the plot shows the seismograms horizontally
+def plot_envelope_taup_quantitative(original_stream=None,original_stream_dict=None,run_list=[],
+    observation_stream=None,
+    distance_in_degree=60,inv=None,
+    model_taup=None,
+    # model_taup_label=None,
+    taup_show=False,
+    title=None,
+    channel='Z',obs_start=-1800,startsecond=0,endsecond=1800,normalize='relative',
+    # scale_list=None,
+    taper_len=10,phase_list=["P", "PP", "PcP", "Pdiff", "PvmP"],source_depth_in_km=0.001,
+    smooth_periods=10,
+    pre_filt_env = [[0.2,0.3,0.5,0.6]],
+    pre_filt_colors = None,
+    Qc_calc=False,Qc_after_tmax=50,Qc_length=500,
+    show_fig=True,save_fig=False,figsize=(11, 17)):
+
+    # first work out what we have
+
+    # are there any observations?
+    observation_stream_local = Stream()
+    if observation_stream is not None:
+
+        if channel == 'Z':
+            channel1 = 'MHZ'
+        else:
+            print('needs more work to rotate')
+            return
+        for tr in observation_stream.select(channel=channel1):
+            if math.isclose(tr.stats.distance_in_degree,distance_in_degree,abs_tol=0.01):
+                tr1 = tr.copy()
+                observation_stream_local.append(tr1)
+
+        # check that there is only one
+        if len(observation_stream_local) < 1:
+            print('No observations found at this distance')
+            return
+        elif len(observation_stream_local) > 1:
+            print('More than one observation found at this distance')
+            return
+
+    # are there any simulations?
+    epicentral_stream = Stream()
+    if original_stream is not None:
+        for tr in original_stream.select(channel=channel):
+            if math.isclose(tr.stats.distance_in_degree,distance_in_degree,abs_tol=0.01):
+                tr1 = tr.copy()
+                epicentral_stream.append(tr1)
+    else:
+        for run in run_list:
+            for tr in original_stream_dict[run].select(channel=channel):
+                if math.isclose(tr.stats.distance_in_degree,distance_in_degree,abs_tol=0.01):
+                    tr1 = tr.copy()
+                    epicentral_stream.append(tr1)
+
+    # is there more than one set of filter parameters?
+    compare_traces = False
+    # check there is only one observation or simulation
+    n_traces = len(observation_stream_local) + len(epicentral_stream)
+    if n_traces > 1:
+        compare_traces = True
+        print(len(pre_filt_env))
+        if len(pre_filt_env) > 1:
+            print("""Either pass in multiple filter options or multiple traces\n
+                It's not possible to pass in more than one trace and more than one
+                filter""")
+            return
+
+    if pre_filt_colors is None:
+        pre_filt_colors = seaborn.color_palette('Set2', n_colors=len(pre_filt_env))
+
+    # start a figure
+    matplotlib.rcParams.update({'font.size': 10})
+    matplotlib.rcParams.update({'axes.titlesize' : 'medium'})
+    fig = plt.subplots(figsize=figsize)
+
+    if len(observation_stream_local) > 0:
+
+        # make some basic preparations for the traces (remove the -1 values, remove the single sample gaps, taper, remove the mean)
+        remove_negative_ones(observation_stream_local)
+        for tr in observation_stream_local:
+            # interpolate across the gaps of one sample
+            linear_interpolation(tr,interpolation_limit=1)
+
+        observation_stream_local.taper(max_percentage=None,max_length=taper_len,side='both')
+
+        for i, tr in enumerate(observation_stream_local):
+
+            for ii, pre_filt in enumerate(pre_filt_env):
+                tr_obs = tr.copy()
+
+                # plot_envelope_taup_quantitative
+
+                # find a good smoothing size
+                freqmin = pre_filt[1]
+                freqmax = pre_filt[2]
+                smoothie = calculate_smoothie_from_periods(delta=tr_obs.stats.delta,freqmin=freqmin,freqmax=freqmax,smooth_periods=smooth_periods)
+                # mid_freq = freqmin + (freqmax - freqmin)/2
+                # mid_period  = 1/ mid_freq
+                # smooth_kernel_size = mid_period * smooth_periods / observation_stream_local[0].stats.delta
+                # smooth_kernel_size = int(smooth_kernel_size) + 1
+
+                # print('Observations: smooth_periods={}, smooth_kernel_size={} smoothing length={:.1f} s freqmin={} Hz freqmax= {} Hz mid_period = {} Hz'.format(smooth_periods,smooth_kernel_size, smooth_kernel_size*observation_stream_local[0].stats.delta,freqmin, freqmax, mid_period))
+
+                # add linear interpolation but keep the original mask
+                original_mask = linear_interpolation(tr_obs,interpolation_limit=None)
+
+                if tr.stats.channel in ['MH1', 'MH2', 'MHZ','SHZ']:
+                    # remove the instrument response into velocity
+                    tr_obs.remove_response(inventory=inv, pre_filt=pre_filt, zero_mean=True, taper=True, output="VEL",
+                               water_level=None, plot=False)
+
+                    tr_envelope = tr_obs.copy()
+                    tr_envelope.data=envelope(tr_obs.data)
+
+                    # apply the mask back to the trace
+                    tr_envelope.data = np.ma.masked_array(tr_envelope, mask=original_mask)
+
+                    if smooth_periods > 1:
+                        # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                        # data_convolved = np.convolve(tr_envelope.data, kernel, mode='same')
+                        #
+                        # tr_envelope.data = data_convolved
+
+                        # smooth the envolope
+                        tr_envelope.data = smooth(x=tr_envelope.data,smoothie=smoothie)
+
+                    tr_envelope.trim(starttime=tr.stats.impact_time + startsecond, endtime=tr_envelope.stats.impact_time + endsecond)
+
+                    ref_time = tr.stats.impact_time
+                    time = tr_envelope.times(reftime=ref_time)
+
+                    # normalize
+                    if normalize == 'relative':
+
+                        # display tmax
+                        i_tmax = np.argmax(tr_envelope.data)
+                        tmax = tr_envelope.times(reftime=ref_time)[i_tmax]
+
+                        if Qc_calc == False:
+                            print('{},{},{},{:.2f},{:.2f},{:.2f}'.format(tr_envelope.stats.title,
+                                round(tr_envelope.stats.distance_in_degree,3),
+                                round(tmax,1),
+                                round(smoothie*observation_stream_local[0].stats.delta,1),freqmin,freqmax))
+
+                        # find the normalization factor
+                        max_data = abs(tr_envelope.data).max()
+                        # normalize the trace
+                        tr_envelope.data = tr_envelope.data/max_data
+# observations!
+                        if Qc_calc:
+
+                            # Trim the smoothed trace, so that starttime is tmax plus 50 s, and endtime is 500 s later
+                            tr_decay_env = tr_envelope.copy()
+                            startsecond1 = tmax+Qc_after_tmax
+                            endsecond1 = startsecond1+Qc_length
+
+                            # we need the energy, so square the trace
+                            tr_decay_env.data = np.square(tr_decay_env.data)
+
+                            # find the normalization factor
+                            max_data_e = abs(tr_decay_env.data).max()
+                            # print('max_data_e ', max_data_e)
+                            # normalize the trace
+                            tr_decay_env.data = tr_decay_env.data/max_data_e
+
+                            # plt.plot(tr_decay_env.times(reftime=UTCDateTime(startsecond)), tr_decay_env.data, 'g-')
+                            plt.plot(tr_decay_env.times(reftime=ref_time), tr_decay_env.data, 'g-')
+                            tr_decay_env.trim(starttime=ref_time+startsecond1, endtime=ref_time+endsecond1)
+                            title_label=tr_envelope.stats.title
+                            label = '{:.2f}-{:.2f} Hz - Energy'.format(freqmin,freqmax)
+                            #
+                            # Linear Fit to the simulation (starting at starttime)
+                            A, td = fit_exp_linear(tr_decay_env.times(reftime=ref_time+startsecond1), tr_decay_env.data)
+                            decay_y = calc_coda_decay(A, tr_decay_env.times(reftime=ref_time+startsecond1), td)
+                            # print(tr_decay_env.stats.station, tr_decay_env.stats.short_title, tr_decay_env.stats.distance_in_degree, td, freqmin,freqmax)
+
+                            # name,distance_in_degree,tmax,smoothing_length,freqmin,freqmax,Qc_after_tmax,Qc_length,td
+                            print('{},{},{},{:.2f},{:.2f},{:.2f},{},{},{}'.format(tr_envelope.stats.title,
+                                round(tr_envelope.stats.distance_in_degree,3),
+                                round(tmax,1),
+                                round(smoothie*tr_decay_env.stats.delta,1),freqmin,freqmax,
+                                Qc_after_tmax,Qc_length,round(td,1)))
+                            # "Model, "
+                            # print('Model={}, Epicentental')
+                            plt.plot(tr_decay_env.times(reftime=ref_time), decay_y, 'b-',
+                                  label='Fit')
+
+                            # plt.axhline(y=1, color='r', linestyle='-')
+                            # plt.axhline(y=0.37, color='r', linestyle='-')
+
+
+                        # this was some code to loop through the startime to check the dependence of td on the starttime of the fit
+                        # as in Gillet et al., 2017, we found very little dependence on the startime
+                        # if Qc_calc:
+                        #     x = tmax+Qc_after_tmax
+                        #     while x < (endsecond - Qc_length):
+                        #         # Trim the smoothed trace, so that starttime is tmax plus 50 s, and endtime is 500 s later
+                        #         tr_decay_env = tr_envelope.copy()
+                        #         startsecond1 = x
+                        #
+                        #         endsecond1 = startsecond1+Qc_length
+                        #
+                        #         # we need the energy, so square the trace
+                        #         tr_decay_env.data = np.square(tr_decay_env.data)
+                        #         # plt.plot(tr_decay_env.times(reftime=UTCDateTime(startsecond)), tr_decay_env.data, 'g-')
+                        #         # plt.plot(tr_decay_env.times(reftime=ref_time), tr_decay_env.data, 'g-')
+                        #         tr_decay_env.trim(starttime=ref_time+startsecond1, endtime=ref_time+endsecond1)
+                        #         title_label=tr_envelope.stats.title
+                        #         label = '{:.2f}-{:.2f} Hz - Energy'.format(freqmin,freqmax)
+                        #         #
+                        #         # Linear Fit to the simulation (starting at starttime)
+                        #         A, td = fit_exp_linear(tr_decay_env.times(reftime=ref_time+startsecond1), tr_decay_env.data)
+                        #         decay_y = calc_coda_decay(A, tr_decay_env.times(reftime=ref_time+startsecond1), td)
+                        #         # print(tr_decay_env.stats.station, tr_decay_env.stats.short_title, tr_decay_env.stats.distance_in_degree, td, freqmin,freqmax)
+                        #
+                        #         # name,distance_in_degree,tmax,smoothing_length,freqmin,freqmax,Qc_after_tmax,Qc_length,td
+                        #         print('{},{},{},{:.2f},{:.2f},{:.2f},{},{},{},{}'.format(tr_envelope.stats.title,
+                        #             round(tr_envelope.stats.distance_in_degree,3),
+                        #             round(tmax,1),
+                        #             round(smooth_kernel_size*tr_decay_env.stats.delta,1),freqmin,freqmax,
+                        #             Qc_after_tmax,Qc_length,round(td,1),startsecond1))
+                        #         # "Model, "
+                        #         # print('Model={}, Epicentental')
+                        #         plt.plot(tr_decay_env.times(reftime=ref_time), decay_y,
+                        #             # 'b-',
+                        #               label='Fit')
+                        #         x += 300
+
+                    if compare_traces and Qc_calc == False:
+                        title_label = '{:.2f}-{:.2f} Hz'.format(freqmin,freqmax)
+                        label = tr_envelope.stats.title
+                        color = 'k'
+                    else:
+                        title_label = tr_envelope.stats.title
+                        label = '{:.2f}-{:.2f} Hz'.format(freqmin,freqmax)
+                        color = pre_filt_colors[ii]
+
+                    if Qc_calc == False:
+                        # plot the envelope
+                        plt.plot(time,tr_envelope.data,label=label,color=color,alpha=0.5,zorder=1)
+
+    ################################################
+    # Plot the simulations
+    # pad the traces to the left
+    epicentral_stream.trim(starttime=UTCDateTime(-200.0),pad=True,fill_value=0.0)
+    # taper the traces to the right
+    epicentral_stream.taper(max_percentage=None,max_length=taper_len,side='right')
+    # differentiate the traces from displacement to velocity
+    epicentral_stream.differentiate()
+
+    for i, tr in enumerate(epicentral_stream):
+
+        for ii, pre_filt in enumerate(pre_filt_env):
+
+            tr_sim = tr.copy()
+
+
+
+            # process the traces for the envelopes
+
+            # bandpass the simulated trace
+            freqmin = pre_filt[1]
+            freqmax = pre_filt[2]
+            tr_sim.filter('bandpass', freqmin=freqmin, freqmax=freqmax,zerophase=False)
+            # plot_envelope_taup_quantitative
+
+            # find a good smoothing size
+            smoothie = calculate_smoothie_from_periods(delta=tr_sim.stats.delta,freqmin=freqmin,freqmax=freqmax,smooth_periods=smooth_periods)
+
+            # mid_freq = freqmin + (freqmax - freqmin)/2
+            # mid_period  = 1/ mid_freq
+            # smooth_kernel_size = mid_period * smooth_periods / epicentral_stream[0].stats.delta
+            # smooth_kernel_size = int(smooth_kernel_size) + 1
+
+            # print('Simulation: smooth_periods={}, smooth_kernel_size={} smoothing length={:.1f} s freqmin={} Hz freqmax= {} Hz mid_period = {} Hz'.format(smooth_periods,smooth_kernel_size, smooth_kernel_size*tr_sim.stats.delta,freqmin, freqmax, mid_period))
+
+            tr_envelope = tr_sim.copy()
+            # find the envelope
+            tr_envelope.data=envelope(tr_envelope.data)
+
+
+            if smooth_periods > 1:
+                # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
+                # data_convolved = np.convolve(tr_envelope.data, kernel, mode='same')
+                # tr_envelope.data = data_convolved
+                tr_envelope.data = smooth(x=tr_envelope.data,smoothie=smoothie)
+
+            tr_envelope.trim(starttime=UTCDateTime(startsecond), endtime=UTCDateTime(endsecond))
+            ref_time = UTCDateTime(0)
+
+            # normalize
+            if normalize == 'relative':
+                # display tmax
+                i_tmax = np.argmax(tr_envelope.data)
+                tmax = tr_envelope.times(reftime=ref_time)[i_tmax]
+                if Qc_calc == False:
+                    print('{},{},{},{:.2f},{:.2f},{:.2f}'.format(tr_envelope.stats.run,
+                        round(tr_envelope.stats.distance_in_degree,3),
+                        round(tmax,1),
+                        round(smoothie*epicentral_stream[0].stats.delta,1),freqmin,freqmax))
+
+                # find the normalization factor
+                max_data = abs(tr_envelope.data).max()
+                # normalize the trace
+                tr_envelope.data = tr_envelope.data/max_data
+    #                     print('trace should be normalized')
+                # print('plot envelope ', abs(tr_envelope.data).max())
+
+            if Qc_calc:
+                # Trim the smoothed trace, so that starttime is tmax plus 50 s, and endtime is 500 s later
+                tr_decay_env = tr_envelope.copy()
+                startsecond1 = tmax+Qc_after_tmax
+                endsecond1 = startsecond1+Qc_length
+
+                # we need the energy, so square the trace
+                tr_decay_env.data = np.square(tr_decay_env.data)
+                # plt.plot(tr_decay_env.times(reftime=UTCDateTime(startsecond)), tr_decay_env.data, 'g-')
+                plt.plot(tr_decay_env.times(reftime=UTCDateTime(0)), tr_decay_env.data, 'g-')
+                tr_decay_env.trim(starttime=UTCDateTime(startsecond1), endtime=UTCDateTime(endsecond1))
+                title_label=tr_envelope.stats.short_title
+                label = '{:.2f}-{:.2f} Hz - Energy'.format(freqmin,freqmax)
+
+
+
+
+
+                # Linear Fit to the simulation (starting at starttime)
+                A, td = fit_exp_linear(tr_decay_env.times(reftime=UTCDateTime(startsecond1)), tr_decay_env.data)
+                decay_y = calc_coda_decay(A, tr_decay_env.times(reftime=UTCDateTime(startsecond1)), td)
+                # print(tr_decay_env.stats.station, tr_decay_env.stats.short_title, tr_decay_env.stats.distance_in_degree, td, freqmin,freqmax)
+
+                # name,distance_in_degree,tmax,smoothing_length,freqmin,freqmax,Qc_after_tmax,Qc_length,td
+                print('{},{},{},{:.2f},{:.2f},{:.2f},{},{},{}'.format(tr_envelope.stats.run,
+                    round(tr_envelope.stats.distance_in_degree,3),
+                    round(tmax,1),
+                    round(smoothie*epicentral_stream[0].stats.delta,1),freqmin,freqmax,
+                    Qc_after_tmax,Qc_length,round(td,1)))
+                # "Model, "
+                # print('Model={}, Epicentental')
+                plt.plot(tr_decay_env.times(reftime=UTCDateTime(0)), decay_y, 'b-',
+                      label='Fit')
+
+            if Qc_calc == False:
+
+                if compare_traces:
+                    title_label = '{:.2f}-{:.2f} Hz'.format(freqmin,freqmax)
+                    label=tr_envelope.stats.short_title
+                    color = color_match.get(tr_envelope.stats.run, 'k')
+
+                else:
+                    title_label=tr_envelope.stats.short_title
+                    label = '{:.2f}-{:.2f} Hz'.format(freqmin,freqmax)
+                    color = pre_filt_colors[ii]
+
+                # plot the envelope
+                time = tr_envelope.times(reftime=ref_time)
+                plt.plot(time,tr_envelope.data,label=label,color=color,alpha=0.7,zorder=2)
+
+    plt.legend(loc='upper right', numpoints=1, ncol=1, frameon=False, fontsize=10)
+
+    if taup_show and Qc_calc == False:
+        phase_list_dict = get_phase_colors(phase_list)
+        print('Source Depth={} km, Distance in degrees {}'.format(source_depth_in_km, distance_in_degree))
+#         print(type(model_taup))
+#         depth_corrected_model = model_taup.model.depth_correct(source_depth)
+#         print(type(depth_corrected_model))
+# #         phase_names = sorted(parse_phase_list(phase_list))
+#         print(source_depth, distance_in_degree)
+        arrivals = model_taup.get_travel_times(source_depth_in_km=source_depth_in_km,
+                                  distance_in_degree=distance_in_degree,phase_list=phase_list)
+        phases_found = []
+        for arrival in arrivals:
+            if arrival.phase.name not in phases_found:
+                print('Suppressing secondary arrivals')
+                plt.gca().axvline(arrival.time, color=phase_list_dict[arrival.phase.name], zorder=2, linestyle='dashed')
+                phases_found.append(arrival.phase.name)
+
+                y_label = -0.03
+                if len(arrivals) > 0:
+                    phase_time = arrivals[0].time
+                    print(phase_time)
+                x_label = arrival.time + 0.005 * (endsecond - startsecond)
+                # label the phases
+                plt.text(x_label,y_label,
+                          arrival.phase.name)
+
+    if title is not None:
+        # if the user passsed a title, use it
+        plt.title(title,pad=-5)
+    else:
+        if compare_traces:
+            title = '{}$\degree$ ({})'.format(round(distance_in_degree,2), title_label)
+        else:
+            title = '{} ({}$\degree$)'.format(title_label, round(distance_in_degree,2))
+        plt.title(title,pad=-5)
+
+    plt.xlim(startsecond,endsecond)
+
+    plt.gca().spines['right'].set_visible(False)
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['left'].set_visible(False)
+
+    if startsecond < 0:
+        tstart = 0
+    else:
+        tstart = startsecond
+    plt.xticks([tstart, endsecond])
+    plt.gca().get_yaxis().set_ticks([])
+
+    plt.xlabel('Time [s]',labelpad=-5)
+
+    # plt.tight_layout()
+
+    if save_fig:
+        fig_name = 'fig_{}.png'.format(UTCDateTime.now())
+        fig_name = os.path.join('./temp/',fig_name)
+        plt.savefig(fig_name, bbox_inches = 'tight', pad_inches = 0)
+        print(fig_name)
+
+    if show_fig:
+        plt.show()
+
     plt.close()
