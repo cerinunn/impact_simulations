@@ -182,9 +182,9 @@ dmypy.json
 cython_debug/
 
 # Ignore some files
-# 
+3D_models_output/Schroedinger_hemisphere.nc
 
-# Ignore some folders 
+# Ignore some folders
 temp/
 input_files_others_work/*
 
