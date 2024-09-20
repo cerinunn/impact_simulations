@@ -766,7 +766,7 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
     raw=False,trace_title_show=True,show_impact_type=False,
 #     pre_filt_env = [[0.1,0.25,0.75,1],[0.5,0.75,1.25,1.5],[1,1.25,1.75,2.25]]):
 #     pre_filt_env = [[0.3,0.4,0.5,0.6]]
-    pre_filt_env=None,smooth_periods=10,fill_envelope=False, save_fig=False,figsize=(11, 17),legend_loc='best', ncol=2, show_legend=True, seismograms_vertical=True):
+    pre_filt_env=None,smooth_periods=10, plot_envelope=False, fill_envelope=False, plot_envelope_derivative=False, save_fig=False,figsize=(11, 17),legend_loc='best', ncol=2, show_legend=True, seismograms_vertical=True):
 
     if model_taup_label is not None:
         print('Calculated using model : ', model_taup_label)
@@ -1111,19 +1111,10 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
 
             # find a good smoothing size
             smoothie = calculate_smoothie_from_periods(delta=epicentral_stream_env[0].stats.delta,freqmin=freqmin,freqmax=freqmax,smooth_periods=smooth_periods)
-            # mid_period  = 1/((pre_filt[1] + pre_filt[2]) / 2)
-            # smooth_kernel_size = mid_period * smooth_periods / epicentral_stream_env[0].stats.delta
-            # smooth_kernel_size = int(smooth_kernel_size) + 1
-
             print('smooth_periods={}, smoothie={} smoothing length={:.1f} s'.format(smooth_periods,smoothie, smoothie*epicentral_stream_env[0].stats.delta))
 
             for i, tr1 in enumerate(epicentral_stream_env):
-
                 tr = tr1.copy()
-#                 tr.plot()
-#                 print(pre_filt)
-#                 return
-
                 # process the traces for the envelopes
                 if observations:
 
@@ -1145,17 +1136,6 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
 
                 if smoothie > 1:
                     tr.data = smooth(x=tr.data,smoothie=smoothie)
-                    # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                    # data_convolved = np.convolve(tr.data, kernel, mode='same')
-                    # tr.data = data_convolved
-
-#                     # y_avg = np.zeros((1, len(tr)))
-#                     # avg_mask = np.ones(smooth_length)/smooth_length
-#                     # y_avg = np.convolve(tr.data, avg_mask, 'same')
-
-#                     # tr.data = y_avg
-
-
 
                 if observations:
                     # apply the mask back to the trace
@@ -1205,8 +1185,14 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
 
                 # plot the envelope
 
+                # calculate the derivative of the smoothed envelope
+                if plot_envelope_derivative:
+                    tr_diff = tr.copy()
+                    tr_diff.differentiate()
 
                 time = tr.times(reftime=ref_time)
+                if plot_envelope_derivative:
+                    time_diff = tr_diff.times(reftime=ref_time)
 
 #               # old way (was originally not squared)
 #                 data = tr.data*scale + tr.stats.distance_in_degree
@@ -1226,11 +1212,27 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
                         plt.fill_betweenx(y=time,x1=data,x2=data1,label='Envelope ({}-{} Hz)'.format(pre_filt[1],pre_filt[2]), color=filter_colors[ii],alpha=0.5, zorder=9)
                     else:
                         plt.fill_between(x=time,y1=data,y2=data1,label='Envelope ({}-{} Hz)'.format(pre_filt[1],pre_filt[2]), color=filter_colors[ii],alpha=0.5, zorder=9)
-                else:
+
+                if plot_envelope:
                     if seismograms_vertical:
                         plt.plot(data,time,label='Envelope ({}-{} Hz)'.format(pre_filt[1],pre_filt[2]),color=filter_colors[ii],alpha=0.7,zorder=9)
                     else:
                         plt.plot(time,data,label='Envelope ({}-{} Hz)'.format(pre_filt[1],pre_filt[2]),color=filter_colors[ii],alpha=0.7,zorder=9)
+
+                if plot_envelope_derivative:
+
+                    # scaling is currently x100 of the normal scaling
+                    if scale_list is not None:
+                        data_diff = tr_diff.data*scale_list[i]*scale*100 + tr_diff.stats.distance_in_degree
+                    else:
+                        data_diff = tr_diff.data*scale*100 + tr_diff.stats.distance_in_degree
+
+
+                    if seismograms_vertical:
+                        plt.plot(data_diff,time_diff,label='Derivative ({}-{} Hz)'.format(pre_filt[1],pre_filt[2]),color='r',alpha=0.7,zorder=9)
+                    else:
+                        plt.plot(time_diff,data_diff,label='Derivative ({}-{} Hz)'.format(pre_filt[1],pre_filt[2]),color='r',alpha=0.7,zorder=9)
+                        plt.hlines(y=tr_diff.stats.distance_in_degree,xmin=time_diff[0],xmax=time_diff[-1],color='k',alpha=1,zorder=1)
 
     if catalogs is not None:
         station_latitude, station_longitude, station_elevation = get_station_details(inv)
