@@ -1185,7 +1185,7 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
 
                 # plot the envelope
 
-                # calculate the derivative of the smoothed envelope
+                # calculate the derivative of the smoothed envelope - and then smooth it
                 if plot_envelope_derivative:
                     tr_diff = tr.copy()
                     tr_diff.differentiate()
@@ -1533,7 +1533,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
     freqmin=None,freqmax=None,channel='Z',obs_start=-1800,startsecond=0,endsecond=1800,normalize='relative',
     scale_list=None,
     taper_len=10,phase_list=["P", "PP", "PcP", "Pdiff", "PvmP"],source_depth=0.001,
-    smooth_periods=10,plot_seismogram=False,plot_envelope=False,plot_envelope_one_color=False,plot_derivative=False,annotate_relative=False,save_fig=False,figsize=(11, 17)):
+    smooth_periods=10,plot_seismogram=False,plot_envelope=False,plot_envelope_one_color=False,annotate_relative=False,save_fig=False,figsize=(11, 17)):
 
     annotate_endsecond = endsecond*.99
     annotate_endsecond2 = endsecond*1.07
@@ -1623,7 +1623,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
                 tr.remove_response(inventory=inv, pre_filt=pre_filt, zero_mean=True, taper=True, output="DISP",
                            water_level=None, plot=False)
 
-                if plot_envelope or plot_derivative or plot_envelope_one_color:
+                if plot_envelope or plot_envelope_one_color:
                     tr_envelope = tr.copy()
                     # find the envelope
                     tr_envelope.data=envelope(tr_envelope.data)
@@ -1687,19 +1687,6 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
                     # plot the envelope
                     ax.plot(time,tr_envelope.data*scale,color='#710193',alpha=0.5,zorder=9)
-
-                if plot_derivative:
-
-                    tr_diff = tr.copy()
-                    tr_diff.differentiate()
-                    if smoothie > 1:
-                        # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                        # data_convolved = np.convolve(tr_diff.data, kernel, mode='same')
-                        # tr_diff.data = data_convolved
-                        tr_diff.data = smooth(x=tr_diff.data,smoothie=smoothie)
-                    ref_time = tr.stats.impact_time
-                    time = tr.times(reftime=ref_time)
-                    ax2.plot(time,tr_diff.data*scale*100,label='Observation - Derivative',color='r',alpha=0.5,zorder=9)
 
                 if plot_seismogram:
                     # plot the envelope
@@ -1768,7 +1755,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
         # bandpass the simulated trace
         tr.filter('bandpass', freqmin=freqmin, freqmax=freqmax,zerophase=False)
 
-        if plot_envelope or plot_derivative or plot_envelope_one_color:
+        if plot_envelope or plot_envelope_one_color:
             tr_envelope = tr.copy()
             # find the envelope
             tr_envelope.data=envelope(tr_envelope.data)
@@ -1805,7 +1792,7 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
     #                     print('trace normalized')
 
-        if plot_envelope or plot_derivative or plot_envelope_one_color:
+        if plot_envelope or plot_envelope_one_color:
 
 
 
@@ -1859,20 +1846,6 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
             time = tr_envelope.times(reftime=ref_time)
             ax.plot(time,tr_envelope.data*scale-(i+1)*2,label=tr_envelope.stats.run,color=color_match_col,alpha=0.5,zorder=7)
 
-        if plot_derivative:
-            tr_diff = tr_envelope.copy()
-#             for ix in range(0,len(tr_diff.data)):
-#                 tr_diff.data[ix] = 2*ix**2
-#             for ix in range(0,200):
-#                 tr_diff.data[ix] = tr_diff.data[199]
-            tr_diff.differentiate()
-            if smoothie > 1:
-                tr_diff.data = smooth(x=tr_diff.data,smoothie=smoothie)
-                # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                # kernel = np.ones(smooth_kernel_size) / smooth_kernel_size
-                # data_convolved = np.convolve(tr_diff.data, kernel, mode='same')
-                # tr_diff.data = data_convolved
-
             time = tr_diff.times(reftime=ref_time)
             ax.plot(time,tr_diff.data*scale*100-(i+1)*2,label='{} Derivative'.format(tr_diff.stats.run),color='g',alpha=0.5,zorder=9)
 
@@ -1910,10 +1883,6 @@ def plot_envelope_taup(original_stream=None,original_stream_dict=None,run_list=[
 
     ax.annotate(text=annotation, xy=(1,-0.06), xycoords='axes fraction',
                 horizontalalignment='right', verticalalignment='top',fontsize=10, color='k')
-
-    if plot_derivative:
-        plt.ylabel('Smoothed Derivative*100', color='g')
-
 
     # plot legend, avoiding duplicate labels
     # handles, labels = ax.get_legend_handles_labels()
