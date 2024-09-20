@@ -1189,6 +1189,7 @@ def plot_epicentral_distance_taup(original_stream,inv=None,seismogram_show=True,
                 if plot_envelope_derivative:
                     tr_diff = tr.copy()
                     tr_diff.differentiate()
+                    tr_diff.data = smooth(x=tr_diff.data,smoothie=smoothie)
 
                 time = tr.times(reftime=ref_time)
                 if plot_envelope_derivative:
