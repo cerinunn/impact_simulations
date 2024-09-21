@@ -1,43 +1,84 @@
-Welcome to impact_simulations. This code was used to: 
+Welcome to impact_simulations. This code was used to:
 
-a) View the seismograms of the artificial impacts on the Moon (1969 - 1972). 
+a) View the seismograms of the artificial impacts on the Moon (1969 - 1972).
 
 b) Set up 3D models for seismic simulations for the Moon.
 
-c) View the simulations. 
+c) View the simulations.
 
 d) Create the other figures for a forthcoming paper.
 
 ----
-See also https://doi.org/10.5281/zenodo.10631693 
+See also https://doi.org/10.5281/zenodo.10631693
 
-The Zenodo repository includes the parameter files and outputs (in NetCDF files). 
+The Zenodo repository includes the parameter files and outputs (in NetCDF files).
 
 ----
+OVERVIEW OF THE NOTEBOOKS
+
+#####################
 postprocessing_observations.ipynb
+View the observations of artificial impacts.
+Figures 1, 2 and Table 1
 
-Artificial Observations (with no phases, with P phase, with P, S and PS)
-
-view_artificial_observations.ipynb 
-
-Figures in the paper viewing the artificial impacts 
-
+#####################
 postprocessing_simulations.ipynb
+View the Simulations (some figures also include the observations)
+Figures 4, 5, 6, 9, 10, 11, 12, 13
 
-Figures in the paper viewing the artificial impacts 
+#####################
+TauP_plots.ipynb
+Create the TauP models and view the velocity models
+Figures 3, 7, 8
 
-build_Moon_surface_model.ipynb
+#####################
+quantitative_estimates.ipynb
+Quantitative comparisons between M-2 and observations
+Estimates of Rise Time and Characteristic Decay Time
+Figures 14, 15, 16
 
-3D models of surface and Moho topography 
+#####################
+view_all_simulations.ipynb
+View all simulations from 0-60 degrees. Similar to Figure 13 in the paper, but for all simulations.
 
+#####################
+view_artificial_observations.ipynb
+Alternative views of the Observations - with and without P, PS and S phases
+
+#####################
+comparison.ipynb
+Compare observation at each distance with simulation M-2
+Includes the observations used in Onodera et al., 2024.
+
+#####################
+slope_analysis.ipynb
+View the gradient of seismic envelope
+
+#####################
+Fourier_parameter.ipynb
+Assess the Fourier parameter
+
+#####################
 build_Moon_scatter.ipynb
+Build heterogeneities for the models
 
-3D models of random lunar scatter
+#####################
+build_Moon_surface_model.ipynb
+Build Moho and surface topography
 
+#####################
+combine_netcdf.ipynb
+Combine the NetCDF files
+
+
+input_files/ImpactParameters.csv
+Timing, location and trajectory of the Artificial Impacts.
 
 ----
+DEPENDENCIES
+
 This was the code I used to set up my local python environment - called postprocessing.
-I used Miniconda - which will need to be set up first. 
+I used Miniconda - which will need to be set up first.
 
 
 conda create -n postprocessing python=3.8  
@@ -52,7 +93,3 @@ pip install --find-links=https://irfpy.irf.se/sdist/ irfpy.util -U
 pip install --no-index --find-links=https://irfpy.irf.se/sdist irfpy.planets -U
 
 conda install basemap
-
-input_files/ImpactParameters.csv 
-
-Timing, location and trajectory of the Artificial Impacts. 
