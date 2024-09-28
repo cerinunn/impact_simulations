@@ -299,7 +299,6 @@ def combined_file_slices(top_dir=None,
         nc_file = os.path.join(data_dir,nc_fname)
 
         source_ds = nc4.Dataset(nc_file)
-
 #         print(nc_file)
 #         for name, dimension in source_ds.dimensions.items():
 
@@ -318,62 +317,50 @@ def combined_file_slices(top_dir=None,
 #             # copy global attributes all at once via dictionary
 #             dest_ds.setncatts(source_ds.__dict__)
 
+            for name, variable in source_ds.variables.items():
+                if 'list_element__NaG' in name:
+                    list_element__NaG_input = name
+                    print(type(list_element__NaG_input))
+                    print(list_element__NaG_input)
+                    # get the nag_number, which is dynamic
+                    nag_number = list_element__NaG_input.split('list_element__NaG=')[1]
+                    nag_number = str(nag_number)
+
+            dim_element__NaG_input = 'dim_element__NaG=' + nag_number
+            list_element__NaG_input = 'list_element__NaG=' + nag_number
+            data_wave__NaG_input = 'data_wave__NaG=' + nag_number
+            dim_na__NaG_input = 'dim_na__NaG=' + nag_number
+
+            # copy dimensions
             for name, dimension in source_ds.dimensions.items():
-                if name == 'dim_na_grid':
-                    dim_na_number = dimension.size
+                if 'dim_element' == name:
+                    dest_ds.createDimension(name,total_elements)
+                elif dim_element__NaG_input == name:
+                    dest_ds.createDimension(dim_element__NaG_input,total_elements)
+                # elif name in [dim_na__NaG_input]:
+                #     dest_ds.createDimension(
+                #         'dim_na__NaG', (len(dimension) if not dimension.isunlimited() else None))
+                else:
+                    dest_ds.createDimension(
+                        name, (len(dimension) if not dimension.isunlimited() else None))
 
+            # Copy variables
+            exclude = [list_element__NaG_input, 'list_element_na', 'list_element_coords', data_wave__NaG_input]
+            for v_name, varin in source_ds.variables.items():
+                print(v_name, varin)
+                if v_name not in exclude:
+                    outVar = dest_ds.createVariable(v_name, varin.datatype, varin.dimensions)
 
-            for n in range(dim_na_number):
-                n1  = str(n+1)
-                dim_element__NaG_input = 'dim_element__NaG=' + n1
-                list_element__NaG_input = 'list_element__NaG=' + n1
-                data_wave__NaG_input = 'data_wave__NaG=' + n1
-                dim_na__NaG_input = 'dim_na__NaG=' + n1
+                    # Copy variable attributes
+                    outVar.setncatts({k: varin.getncattr(k) for k in varin.ncattrs()})
+                    outVar[:] = varin[:]
 
-                # source_ds.['clcalipso2']
-
-            # data['clcalipso2'].dimensions)
-            #                 if 'dim_na__NaG' in name:
-            #                     dim_na_number = dimension.size
-
-            # dim_element__NaG_input = 'dim_element__NaG=' + dim_na_number
-            # list_element__NaG_input = 'list_element__NaG=' + dim_na_number
-            # data_wave__NaG_input = 'data_wave__NaG=' + dim_na_number
-            # dim_na__NaG_input = 'dim_na__NaG=' + dim_na_number
-
-                # copy dimensions
-                for name, dimension in source_ds.dimensions.items():
-                    if 'dim_element' == name:
-                        dest_ds.createDimension(name,total_elements)
-                    elif dim_element__NaG_input == name:
-                        dest_ds.createDimension(dim_element__NaG_input,total_elements)
-                    # elif name in [dim_na__NaG_input]:
-                    #     dest_ds.createDimension(
-                    #         'dim_na__NaG', (len(dimension) if not dimension.isunlimited() else None))
-                    else:
-                        dest_ds.createDimension(
-                            name, (len(dimension) if not dimension.isunlimited() else None))
-
-    #
-                # Copy variables
-                exclude = [list_element__NaG_input, 'list_element_na', 'list_element_coords', data_wave__NaG_input]
-                for v_name, varin in source_ds.variables.items():
-                    print(v_name, varin)
-                    if v_name not in exclude:
-                        outVar = dest_ds.createVariable(v_name, varin.datatype, varin.dimensions)
-
-                        # Copy variable attributes
-                        outVar.setncatts({k: varin.getncattr(k) for k in varin.ncattrs()})
-                        outVar[:] = varin[:]
-
-                # create the variables which will be concatenated
-                list_element__NaG_output = dest_ds.createVariable(list_element__NaG_input, 'int32', dim_element__NaG_input)
-                list_element_na_output = dest_ds.createVariable('list_element_na', 'int32', ('dim_element', 'dim_5'))
-                list_element_coords_output = dest_ds.createVariable('list_element_coords', 'float64', ('dim_element', 'dim_GLL', 'dim_2'))
-                data_wave__NaG_output = dest_ds.createVariable(data_wave__NaG_input, 'float32', (
-                      dim_element__NaG_input, dim_na__NaG_input, 'dim_GLL', 'dim_channel', 'dim_time'))
-
-
+            # create the variables which will be concatenated
+            list_element__NaG_output = dest_ds.createVariable(list_element__NaG_input, 'int32', dim_element__NaG_input)
+            list_element_na_output = dest_ds.createVariable('list_element_na', 'int32', ('dim_element', 'dim_5'))
+            list_element_coords_output = dest_ds.createVariable('list_element_coords', 'float64', ('dim_element', 'dim_GLL', 'dim_2'))
+            data_wave__NaG_output = dest_ds.createVariable(data_wave__NaG_input, 'float32', (
+                  dim_element__NaG_input, dim_na__NaG_input, 'dim_GLL', 'dim_channel', 'dim_time'))
 
         # for all files, copy the data for the variables that need concatenating
 
