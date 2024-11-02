@@ -14,6 +14,42 @@ See also https://doi.org/10.5281/zenodo.10631693
 The Zenodo repository includes the parameter files and outputs (in NetCDF files).
 
 ----
+DEPENDENCIES
+
+This was the code I used to set up my local python environment - called postprocessing.
+I used Miniconda - which will need to be set up first.
+
+
+conda create -n postprocessing python=3.8  
+
+conda activate postprocessing
+
+conda install jupyter pyyaml matplotlib basemap pandas
+
+conda install -c conda-forge obspy netcdf4
+
+pip install --find-links=https://irfpy.irf.se/sdist/ irfpy.util -U
+    # Moon basemap  
+
+pip install --no-index --find-links=https://irfpy.irf.se/sdist irfpy.planets -U
+
+
+----
+Navigate to the directory and at the command prompt type "jupyter notebook"
+
+NOTE I've recently had this fail with a blank page:
+http://localhost:8888/tree
+And and an error message on the command line:
+"Skipped non-installed server(s)"
+
+A workaround is to do a reset on the open browser page:
+(Command, Shift and the 'R' on a Mac)
+
+See this site for an introduction to Jupyter notebooks
+https://jupyter.org/try-jupyter/notebooks/?path=notebooks/Intro.ipynb
+
+
+----
 OVERVIEW OF THE NOTEBOOKS
 
 #####################
@@ -106,27 +142,3 @@ OTHER FILES
 input_files/ImpactParameters.csv
 
 Timing, location and trajectory of the Artificial Impacts.
-
-----
-DEPENDENCIES
-
-This was the code I used to set up my local python environment - called postprocessing.
-I used Miniconda - which will need to be set up first.
-
-
-conda create -n postprocessing python=3.8  
-
-conda activate postprocessing
-
-conda install jupyter pyyaml matplotlib basemap pandas future  
-
-conda install -c conda-forge obspy netcdf4  
-
-pip install opencv-python pyvista vtk
-
-pip install --find-links=https://irfpy.irf.se/sdist/ irfpy.util -U  
-    # Moon basemap  
-
-pip install --no-index --find-links=https://irfpy.irf.se/sdist irfpy.planets -U
-
-conda install basemap
