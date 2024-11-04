@@ -6,7 +6,6 @@ Author: Ceri Nunn, JPL
 """
 
 import os
-import csv
 import yaml
 import numpy as np
 import netCDF4 as nc4
@@ -20,23 +19,17 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import matplotlib
 matplotlib.rcParams["font.size"] = "10"
-from matplotlib.dates import date2num
 from matplotlib.patches import Rectangle
 from matplotlib import patheffects
 
 from obspy.core import Stream, Trace, UTCDateTime, Stats
 from obspy.core.event import read_events
-# from obspy.io.sac import SACTrace
-from obspy.signal.detrend import spline
 from obspy import read
 from obspy import read_inventory
 from obspy.signal.filter import envelope
 from obspy.geodetics.base import gps2dist_azimuth, kilometers2degrees
 
-from obspy.taup.taup_create import build_taup_model
-from obspy.taup import TauPyModel
-from obspy.taup.tau import plot_ray_paths
-from obspy.taup.utils import parse_phase_list, split_ray_path
+from obspy.taup.utils import parse_phase_list
 from obspy.taup.seismic_phase import SeismicPhase
 from obspy.signal.util import smooth
 
@@ -49,7 +42,7 @@ import seaborn
 from matplotlib.pyplot import get_cmap
 
 from impact_simulations.postprocessing_util_observations import get_station_details
-
+from obspy.clients.fdsn.client import Client
 
 plt.rcParams['figure.figsize'] = [16, 7]
 
@@ -57,9 +50,6 @@ MOON_RADIUS_IN_KM = 1737.1
 # MOON_FLATTENING = 1/825
 MOON_FLATTENING = 0.0 # flattening for the spherical model
 
-# import pyvtk
-# import xarray as xr
-from obspy.clients.fdsn.client import Client, FDSNNoDataException
 
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -320,8 +310,6 @@ def combined_file_slices(top_dir=None,
             for name, variable in source_ds.variables.items():
                 if 'list_element__NaG' in name:
                     list_element__NaG_input = name
-                    print(type(list_element__NaG_input))
-                    print(list_element__NaG_input)
                     # get the nag_number, which is dynamic
                     nag_number = list_element__NaG_input.split('list_element__NaG=')[1]
                     nag_number = str(nag_number)
