@@ -35,7 +35,7 @@ from obspy.signal.util import smooth
 
 from irfpy.moon import moon_map
 
-from pdart.util import linear_interpolation, remove_negative_ones
+from util import linear_interpolation, remove_negative_ones
 
 import seaborn
 

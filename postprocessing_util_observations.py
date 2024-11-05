@@ -21,7 +21,7 @@ from obspy.geodetics.base import gps2dist_azimuth, kilometers2degrees
 from obspy.clients.fdsn.client import Client
 from obspy.clients.fdsn.header import FDSNNoDataException
 
-from pdart.util import linear_interpolation, remove_negative_ones, remove_negative_ones_trace
+from util import linear_interpolation, remove_negative_ones, remove_negative_ones_trace
 
 
 MOON_RADIUS_IN_KM = 1737.1
