@@ -26,7 +26,9 @@ conda activate postprocessing
 
 conda install jupyter pyyaml matplotlib basemap pandas
 
-conda install -c conda-forge obspy netcdf4 imageio seaborn
+conda install -c conda-forge obspy netcdf4 imageio
+
+conda install conda-forge::seaborn
 
 pip install --find-links=https://irfpy.irf.se/sdist/ irfpy.util -U
     # Moon basemap  
