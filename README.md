@@ -30,6 +30,8 @@ conda install -c conda-forge obspy netcdf4 imageio
 
 conda install conda-forge::seaborn
 
+conda install anaconda::xarray
+
 pip install --find-links=https://irfpy.irf.se/sdist/ irfpy.util -U
     # Moon basemap  
 
