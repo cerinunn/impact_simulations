@@ -43,7 +43,8 @@ Navigate to the directory and at the command prompt type "jupyter notebook"
 
 NOTE I've recently had this fail with a blank page:
 http://localhost:8888/tree
-And and an error message on the command line:
+
+It also has an error message on the command line:
 "Skipped non-installed server(s)"
 
 A workaround is to do a reset on the open browser page:
