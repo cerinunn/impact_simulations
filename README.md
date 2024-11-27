@@ -32,8 +32,8 @@ conda install conda-forge::seaborn
 
 conda install anaconda::xarray
 
+# Moon basemap  
 pip install --find-links=https://irfpy.irf.se/sdist/ irfpy.util -U
-    # Moon basemap  
 
 pip install --no-index --find-links=https://irfpy.irf.se/sdist irfpy.planets -U
 
